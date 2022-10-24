@@ -1,0 +1,31 @@
+npm init
+git init
+
+
+// to start this node server locally run
+node index.js
+
+heroku login
+
+// push new changes to heroku 
+git add .
+git commit -m "comment"
+git push heroku main
+
+// watch server log 
+heroku logs --tail
+
+//shutdown heroku server
+heroku ps:scale web=0
+
+// bring heroku server back online
+heroku ps:scale web=1
+
+// show monthly remaining dyno hours
+heroku ps
+
+// restart heroku server 
+heroku restart
+
+// only run this once on heroku projects using socketio
+heroku features:enable http-session-affinity

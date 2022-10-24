@@ -1,0 +1,56 @@
+[
+    {
+          "oId": 1
+        , "round": 0
+        , "ready": false
+        , "boardSocketId": "3453534535"
+        , "config": {
+              "roundLength": "10000"
+            , "actionLength": "3000"
+            , "fighterHp": "7"
+            , "fighterHpEighth": "1"
+            , "carrierHp": "12"
+            , "carrierHpEighth": "2"
+            , "carrierMinDist": "4"
+            , "bgMusic": "on"
+            , "sfx": "on"
+            , "smCountdown": "on"
+            , "mgAt45": "at"
+        }
+        , "tms": [
+            {
+                 "commit": false
+                , "clr": "red"
+                , "c1x": -10
+                , "c1y": -10
+                , "c2x": -10
+                , "c2y": -10
+                , "dir1": ""
+                , "dir2": ""
+                , "dmg": 0
+                , "plrs": [
+                    {
+                          "id": 1
+                        , "pSid": "53455646"
+                        , "nm": "Nick"
+                        , "rl": "C"
+                        , "x": 6
+                        , "y": 7
+                        , "dir": "east"
+                        , "alt": 0
+                        , "fuel": 30
+                        , "dmg": 0
+                        , "drn": ""
+                        , "diedX": -10
+                        , "diedY": -10
+                        , "status": "alive|justKilled|dead"
+                        , "dirCmd": "south"
+                        , "mvmCmd": "strAsc"
+                    }
+                ]
+            }
+ 
+        ]
+    }
+    
+]
