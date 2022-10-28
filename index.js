@@ -388,50 +388,61 @@ function updateOcean(oceanIdx, data, pSid) {
       pId = updateTeam(teamIdx, ocean, data, pSid); // directly modifying the ocean variable
     }
   }
-  oceans[oceanIdx] = ocean;
+  
+  // team is full
+  if (pId > 6 ) 
+  { 
+    const error = `The ${data.team} team is full and cannot accept any new members`;
+    io.to(pSid).emit('teamFull', error);
+  }
+  else // team not full yet
+  {
+    oceans[oceanIdx] = ocean;
 
-  // find board socket id that this player belongs to
-  const boardSocketid = ocean.boardSocketId;
+    // find board socket id that this player belongs to
+    const boardSocketid = ocean.boardSocketId;
 
-  // send back success message to the board
-  io.to(boardSocketid).emit('playerCreated', {
-      //tms: tms, // remove
-      ocean: ocean,
-      boardSocketid: boardSocketid,
-      oceanCount: oceans.length,
-      clientsConnected: clientsConnected
-  });
+    // send back success message to the board
+    io.to(boardSocketid).emit('playerCreated', {
+        //tms: tms, // remove
+        ocean: ocean,
+        boardSocketid: boardSocketid,
+        oceanCount: oceans.length,
+        clientsConnected: clientsConnected
+    });
 
-  // send back success message to client
-  io.to(pSid).emit('playerCreated', {
-      captain: captain 
-    , pId: pId
-    , pSid: pSid
-    , boardSocketid: boardSocketid
-    , oceanId: data.ocean
-    , name: data.name
-    , teamClr: data.team
-    , oceanConfig: ocean.config
+    // send back success message to client
+    io.to(pSid).emit('playerCreated', {
+        captain: captain 
+      , pId: pId
+      , pSid: pSid
+      , boardSocketid: boardSocketid
+      , oceanId: data.ocean
+      , name: data.name
+      , teamClr: data.team
+      , oceanConfig: ocean.config
 
-    , teamIdx: teamIdx
-    , x: -10
-    , y: -10
-    , dir: ''
-    , alt: 0
-    , fuel: 0
-    , dmg: 0
-    , drn: ''
-    , diedX: -10
-    , diedY: -10
-    , dirCmd: ''
-    , mvmCmd: "strAsc"
-    , nextTile: {
-        x: 1
-      , y: 2
-      , dir: 'west'
-    }
-  });
+      , teamIdx: teamIdx
+      , x: -10
+      , y: -10
+      , dir: ''
+      , alt: 0
+      , fuel: 0
+      , dmg: 0
+      , drn: ''
+      , diedX: -10
+      , diedY: -10
+      , dirCmd: ''
+      , mvmCmd: "strAsc"
+      , nextTile: {
+          x: 1
+        , y: 2
+        , dir: 'west'
+      }
+    });
 
+  }
+  
 }
 
 
@@ -487,10 +498,14 @@ function updateTeam(teamIdx, ocean, data, pSid) {
   let name = data.name;
   let role = ""; // non captains here
 
-  // push this player onto his team
-  ocean.tms[teamIdx].plrs.push(
-    createPlrObj(ocean, pId, name, role, pSid)
-  );
+  // team is not full yet
+  if (pId < 6) 
+  {
+    // push this player onto his team
+    ocean.tms[teamIdx].plrs.push(
+      createPlrObj(ocean, pId, name, role, pSid)
+    );
+  } 
 
   return pId;
 }

@@ -3,7 +3,7 @@ git init
 
 
 // to start this node server locally run
-node index.js
+node server.js
 
 heroku login
 
